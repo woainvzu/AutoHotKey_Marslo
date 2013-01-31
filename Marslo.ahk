@@ -1,4 +1,14 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿; #=============================================================================
+; ##     FileName: Marslo.ahk
+; ##         Desc: 
+; ##       Author: Marslo
+; ##        Email: marslo.vida@gmail.com
+; ##      Version: 0.0.1
+; ##   LastChange: 2013-01-31 18:07:36
+; ##      History:
+; #=============================================================================
+
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Recommended for catching common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
