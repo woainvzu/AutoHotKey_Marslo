@@ -147,13 +147,13 @@ return
     Loop, 5 {
         Send {Del}
     }
-return
+Return
 !d:: ;; Delete backward word
     Send ^+{Right}+{Rigt}
-    Loop, 5 {
+    Loop, 100 {
         Send {Backspace}
     }
-return
+Return
 
 ; Ctrl+up / Down to scroll command window back and forward
 !k::
@@ -178,7 +178,10 @@ return
 ; Paste in command window
 ^v::
     ; Spanish menu (Editar->Pegar, I suppose English version is the same, Edit->Paste)
-    Send !{Space}ep
+    ; MouseClick, right
+    ; Send !{Space}ep
+    StringReplace clipboard2, clipboard, \r\n, \n, All
+    SendInput {Raw}%clipboard2%
 return
 
 ; Close Command Window with Ctrl+w
@@ -219,16 +222,22 @@ return
 
 ; Open files
 !+f::
-    run "%A_ProgramFiles%\Foxit Software\Foxit Reader\Foxit Reader.exe"
+    ; run "%A_ProgramFiles%\Foxit Software\Foxit Reader\Foxit Reader.exe"
+    run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
 return
 !+l::
-    Run "%A_ProgramFiles%\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
+    ; Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
+    Run C:\Marslo\Tools\Software\WorkSW\ExtraOutlook.exe "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /profile "TEdefault"
+return
+!+k::
+    Run C:\Marslo\Tools\Software\WorkSW\ExtraOutlook.exe "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /profile "li.jiao@tieto.com - Google Apps"
 return
 !+m::
     Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
 return
 !+r::
-    Run %A_WinDir%\hh.exe "%A_ProgramFiles%\Ruby187\doc\ruby18.chm"
+    ; Run %A_WinDir%\hh.exe "%A_ProgramFiles%\Ruby187\doc\ruby18.chm"
+    Run %A_WinDir%\hh.exe "C:\MyProgrames\Ruby193\doc\ruby19-core.chm"
 return
 
 ; Move the windows by Shift+Win+h/l/j/k
@@ -253,29 +262,57 @@ return
     WinMove, %mTitle%,, xpos, ypos+10
 return
 
+#4::
+    IfWinExist Windows Security
+        Send, jiaoolii{Tab}Marslo6{Shift down}1{Shift up}
+        Send, {Enter}
+    Return
+Return
+
 #3::
     Run, %A_ProgramFiles%\Internet Explorer\iexplore.exe https://webmail.nokiasiemensnetworks.com, , , nepid
     ; WinWait, ahk_pid %nepid%
     Sleep, 5000
     WinActivate, Outlook Web App - Windows Internet Explorer
-    Send, Marslo{shift down}1{shift up}5
+    Send, Marslo6{shift down}1{shift up}
     Send, {Enter}
 Return
 
 #2::
-    Run, %A_ProgramFiles%\Internet Explorer\iexplore.exe https://qc.inside.nokiasiemensnetworks.com/qcbin/start_a.htm, , , qcpid
+    ; Run, %A_ProgramFiles%\Internet Explorer\iexplore.exe https://qc.inside.nokiasiemensnetworks.com/qcbin/start_a.htm, , , qcpid
+    Run, "C:\Program Files (x86)\Internet Explorer\iexplore.exe" https://qc.inside.nokiasiemensnetworks.com/qcbin/start_a.htm, , , qcpid
     ; WinWait, ahk_pid %qcpid%
     ; WinActivate, ahk_pid %qcpid%
     Sleep, 15000
     WinActivate, HP Quality Center
     ; MsgBox, 'start'
     Send, {Tab}{Tab}
-    Send, Marslo{shift down}1{shift up}5{Enter}
+    Send, Marslo6{shift down}1{shift up}{Enter}
 Return
 
 #1::
-    Run, %A_ProgramFiles%\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe, , , vpcpid
+    ; Run, %A_ProgramFiles%\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe, , , vpcpid
+    Run, C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe, , , vpcpid
     WinWait, ahk_pid %vpcpid%
     WinActivate, ahk_pid %vpcpid%
     Send, NLE\tempuser{Tab}Passw0rd{Enter}
 Return
+
+
+F6::
+    ; clipboardSaved := clipboard
+    ; MsgBox clipboardSaved
+
+    MouseClick, Right
+    Send, e
+    Send, {Down 2}{Enter}
+
+    ; Clipboard=%1%
+    ; MsgBox Clipboard
+    ; Run,% "Explorer.exe /select, " Clipboard
+return
+
+
+; F1::MsgBox, % ComObjActive("Word.Application").ActiveDocument.FullName
+; F1::MsgBox, ActiveDocument.Path
+; "\" & ActiveDocument.Name
