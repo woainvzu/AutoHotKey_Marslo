@@ -3,10 +3,11 @@
 ;           Desc: 
 ;         Author: Marslo
 ;          Email: marslo.vida@gmail.com
-;        Version: 0.0.2
-;     LastChange: 2013-05-28 16:14:08
+;        Version: 0.0.3
+;     LastChange: 2013-09-11 20:06:20
 ;        History:
 ;               0.0.2: Add the shortcut key make command line looks like shell
+;               0.0.3: Add the shortcut key for Python interative shell
 ; =============================================================================
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
@@ -16,7 +17,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ^+r::
     reload
-return
+Return
 
 
 ; Make quick scroll to the putty window
@@ -28,39 +29,71 @@ return
     WinGetTitle pTitle
     SendMessage, 0x115, 0, 0, , %pTitle%
     ; SendMessage, 0x115, 0, 0, , A
-return
+Return
 
 ; Ctrl+j to scroll down by one line
 !j::
     WinGetTitle pTitle
     SendMessage, 0x115, 1, 0, , %pTitle%
     ; SendMessage, 0x115, 1, 0, , A
-return
+Return
+#IfWinActive
+
+; Make quick delete to begin in Python interactive shell
+#IfWinActive ahk_class TkTopLevel
+^u::
+    ; Send ^{a}+{End}{Del}
+    Send +{Home}{Del}
+Return
+^a::
+    Send {Home}
+Return
+!b::
+    Send ^{Left}
+Return
+!f::
+    Send ^{Right}
+Return
+^j::
+    Send ^{End}{Enter}{Enter}
+Return
+!k::
+    Send {Up}
+Return
+!j::
+    Send {Down}
+Return
+!h::
+    Send {Left}
+Return
+!l::
+    Send {Right}
+Return
 #IfWinActive
 
 ; Using VIM-KEY against Foxit Reader
 #IfWinActive, ahk_class classFoxitReader
-j::Down
-k::Up
-f::PgDn
-b::PgUp
-G::End
-g::Home
-h::
-    Send ^+{Tab}
-return
-l::
-    Send ^{Tab}
-return
-/::
-    Send ^f
-return
-o::
-    Send ^o
-return
-d::
-    Send ^w q::Send !{F4}
-return
+; j::Down
+; k::Up
+; f::PgDn
+; b::PgUp
+; G::End
+; g::Home
+; h::
+    ; Send ^+{Tab}
+; Return
+; l::
+    ; Send ^{Tab}
+; Return
+; /::
+    ; Send ^f
+; Return
+; o::
+    ; Send ^o
+; Return
+; d::
+    ; Send ^w q::Send !{F4}
+; Return
 #IfWinActive
 
 ; Using VIM-LIKE key against chm reader (c:\Windws\hh.exe)
@@ -69,10 +102,10 @@ return
 +k::Up
 /::
     Send ^f
-return
-^w::
-    Send !{F4}
-return
+Return
+; ^w::
+    ; Send !{F4}
+Return
 #IfWinActive
 
 
@@ -82,7 +115,7 @@ return
 +k::Up
 +/::
     Send ^f
-return
+Return
 #IfWinActive
 
 ; Using VIM-LIKE key against Explorer.exe
@@ -93,16 +126,16 @@ return
 ; +e::End
 +l::
     Send {Right}
-return
+Return
 +h::
     Send {Left}
-return
+Return
 +/::
     Send ^f
-return
-^w::
-    Send !{F4}
-return
+Return
+; ^w::
+    ; Send !{F4}
+Return
 #IfWinActive
 
 
@@ -111,47 +144,47 @@ return
 ; Line move
 ^a:: ;; Move to beginning of line
     Send {Home}
-return
+Return
 ^e:: ;; Move to End of line
     Send {End}
-return
+Return
 
 ; Character move
 ^f:: ;; Move a character forward
     Send {Right}
-return
+Return
 ^b:: ;; Move a character backward
     Send {Left}
-return
+Return
 
 ; Word Move
 !b:: ;; Move a word backward
     Send ^{Left}
-return
+Return
 !f:: ;; Move a word forward
     Send ^{Right}
-return
+Return
 
 ; Delete
 ^d:: ;; Delete a char backward
     Send {Del}
-return
+Return
 ^k:: ;; Delete the line from cursor to end
     Send ^{End}
-return
+Return
 ^u:: ;; Delete the line from cursor to beginning
     Send ^{Home}
-return
+Return
 ^w:: ;; Delete previous word
-    Send ^+{Left}+{Left}
-    Loop, 5 {
+    Send ^+{Left}
+    Loop, 50 {
         Send {Del}
     }
 Return
 !d:: ;; Delete backward word
-    Send ^+{Right}+{Rigt}
-    Loop, 100 {
-        Send {Backspace}
+    Send ^+{Right}
+    Loop, 50 {
+         Send {Backspace}
     }
 Return
 
@@ -160,20 +193,20 @@ Return
     WinGetTitle sTitle
     SendMessage, 0x115, 0, 0, , %sTitle%
     ; Send {WheelUp}
-return
+Return
 !j::
     WinGetTitle sTitle
     SendMessage, 0x115, 1, 0, , %sTitle%
     ; Send {WheelDown}
-return
+Return
 
 ; Ctrl+p/n to switch the command history
 ^p::
     Send {Up}
-return
+Return
 ^n::
     Send {Down}
-return
+Return
 
 ; Paste in command window
 ^v::
@@ -182,7 +215,7 @@ return
     ; Send !{Space}ep
     StringReplace clipboard2, clipboard, \r\n, \n, All
     SendInput {Raw}%clipboard2%
-return
+Return
 
 ; Close Command Window with Ctrl+w
 ; $^w::
@@ -195,7 +228,7 @@ return
 ; {
     ; Send ^w
 ; }
-; return
+; Return
 
 #IfWinActive
 
@@ -205,18 +238,18 @@ return
 ; Ctrl+up / Down to scroll command window back and forward
 ^k::
     Send {WheelUp}
-return
+Return
 ^j::
     Send {WheelDown}
-return
+Return
 
 ; Ctrl+p/n to switch the command history
 ^p::
     Send {Up}
-return
+Return
 ^n::
     Send {Down}
-return
+Return
 #IfWinActive
 
 
@@ -224,80 +257,43 @@ return
 !+f::
     ; run "%A_ProgramFiles%\Foxit Software\Foxit Reader\Foxit Reader.exe"
     run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
-return
+Return
 !+l::
     ; Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
     Run C:\Marslo\Tools\Software\WorkSW\ExtraOutlook.exe "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /profile "TEdefault"
-return
+Return
 !+k::
     Run C:\Marslo\Tools\Software\WorkSW\ExtraOutlook.exe "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /profile "li.jiao@tieto.com - Google Apps"
-return
+Return
 !+m::
     Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
-return
+Return
 !+r::
     ; Run %A_WinDir%\hh.exe "%A_ProgramFiles%\Ruby187\doc\ruby18.chm"
     Run %A_WinDir%\hh.exe "C:\MyProgrames\Ruby193\doc\ruby19-core.chm"
-return
+Return
 
 ; Move the windows by Shift+Win+h/l/j/k
 +#h::
     WinGetTitle, mTitle, A
     WinGetPos, xpos, ypos, Width, Height, %mTitle%
     WinMove, %mTitle%,, xpos-10, ypos
-return
+Return
 +#l::
     WinGetTitle, mTitle, A
     WinGetPos, xpos, ypos, Width, Height, %mTitle%
     WinMove, %mTitle%,, xpos+10, ypos
-return
+Return
 +#k::
     WinGetTitle mTitle, A
     WinGetPos, xpos, ypos, Width, Height, %mTitle%
     WinMove, %mTitle%,, xpos, ypos-10
-return
+Return
 +#j::
     WinGetTitle mTitle, A
     WinGetPos, xpos, ypos, Width, Height, %mTitle%
     WinMove, %mTitle%,, xpos, ypos+10
-return
-
-#4::
-    IfWinExist Windows Security
-        Send, jiaoolii{Tab}Marslo6{Shift down}1{Shift up}
-        Send, {Enter}
-    Return
 Return
-
-#3::
-    Run, %A_ProgramFiles%\Internet Explorer\iexplore.exe https://webmail.nokiasiemensnetworks.com, , , nepid
-    ; WinWait, ahk_pid %nepid%
-    Sleep, 5000
-    WinActivate, Outlook Web App - Windows Internet Explorer
-    Send, Marslo6{shift down}1{shift up}
-    Send, {Enter}
-Return
-
-#2::
-    ; Run, %A_ProgramFiles%\Internet Explorer\iexplore.exe https://qc.inside.nokiasiemensnetworks.com/qcbin/start_a.htm, , , qcpid
-    Run, "C:\Program Files (x86)\Internet Explorer\iexplore.exe" https://qc.inside.nokiasiemensnetworks.com/qcbin/start_a.htm, , , qcpid
-    ; WinWait, ahk_pid %qcpid%
-    ; WinActivate, ahk_pid %qcpid%
-    Sleep, 15000
-    WinActivate, HP Quality Center
-    ; MsgBox, 'start'
-    Send, {Tab}{Tab}
-    Send, Marslo6{shift down}1{shift up}{Enter}
-Return
-
-#1::
-    ; Run, %A_ProgramFiles%\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe, , , vpcpid
-    Run, C:\Program Files (x86)\VMware\Infrastructure\Virtual Infrastructure Client\Launcher\VpxClient.exe, , , vpcpid
-    WinWait, ahk_pid %vpcpid%
-    WinActivate, ahk_pid %vpcpid%
-    Send, NLE\tempuser{Tab}Passw0rd{Enter}
-Return
-
 
 F6::
     ; clipboardSaved := clipboard
@@ -310,7 +306,7 @@ F6::
     ; Clipboard=%1%
     ; MsgBox Clipboard
     ; Run,% "Explorer.exe /select, " Clipboard
-return
+Return
 
 
 ; F1::MsgBox, % ComObjActive("Word.Application").ActiveDocument.FullName
