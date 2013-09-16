@@ -258,19 +258,22 @@ Return
     ; run "%A_ProgramFiles%\Foxit Software\Foxit Reader\Foxit Reader.exe"
     run "C:\Program Files (x86)\Foxit Software\Foxit Reader\Foxit Reader.exe"
 Return
-!+l::
+; !+l::
     ; Run "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /recycle
-    Run C:\Marslo\Tools\Software\WorkSW\ExtraOutlook.exe "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /profile "TEdefault"
-Return
-!+k::
-    Run C:\Marslo\Tools\Software\WorkSW\ExtraOutlook.exe "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /profile "li.jiao@tieto.com - Google Apps"
-Return
+    ; Run C:\Marslo\Tools\Software\WorkSW\ExtraOutlook.exe "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /profile "TEdefault"
+; Return
+; !+k::
+    ; Run C:\Marslo\Tools\Software\WorkSW\ExtraOutlook.exe "C:\Program Files (x86)\Microsoft Office\Office14\OUTLOOK.EXE" /profile "li.jiao@tieto.com - Google Apps"
+; Return
 !+m::
     Run %A_WinDir%\hh.exe c:\Marslo\Study\Scritps\MySql\MySQL.Cookbook.2nd.ed.chm
 Return
 !+r::
     ; Run %A_WinDir%\hh.exe "%A_ProgramFiles%\Ruby187\doc\ruby18.chm"
     Run %A_WinDir%\hh.exe "C:\MyProgrames\Ruby193\doc\ruby19-core.chm"
+Return
+!+p::
+    Run %A_WinDir%\hh.exe "C:\MyProgrames\Python27\Doc\python275.chm"
 Return
 
 ; Move the windows by Shift+Win+h/l/j/k
