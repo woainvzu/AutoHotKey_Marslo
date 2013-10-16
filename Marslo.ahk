@@ -236,11 +236,15 @@ Return
 ; Redefine only when the active window is Console2
 #IfWinActive, ahk_class Console_2_Main
 ; Ctrl+up / Down to scroll command window back and forward
-^k::
-    Send {WheelUp}
+!k::
+    WinGetTitle sTitle
+    SendMessage, 0x115, 0, 0, , %sTitle%
+    ; Send {WheelUp}
 Return
-^j::
-    Send {WheelDown}
+!j::
+    WinGetTitle sTitle
+    SendMessage, 0x115, 1, 0, , %sTitle%
+    ; Send {WheelDown}
 Return
 
 ; Ctrl+p/n to switch the command history
@@ -252,6 +256,20 @@ Return
 Return
 #IfWinActive
 
+; Redefine only when the active window is Cygwin
+#IfWinActive, ahk_class mintty
+; Ctrl+up / Down to scroll command window back and forward
+!k::
+    WinGetTitle sTitle
+    SendMessage, 0x115, 0, 0, , %sTitle%
+    ; Send {WheelUp}
+Return
+!j::
+    WinGetTitle sTitle
+    SendMessage, 0x115, 1, 0, , %sTitle%
+    ; Send {WheelDown}
+Return
+#IfWinActive
 
 ; Open files
 !+f::
@@ -298,6 +316,10 @@ Return
     WinMove, %mTitle%,, xpos, ypos+10
 Return
 
+F9::
+    Send source ~/lijiao/.lijiaorc{Enter}
+    Send clear{Enter}
+Return
 F6::
     ; clipboardSaved := clipboard
     ; MsgBox clipboardSaved
