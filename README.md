@@ -39,8 +39,12 @@ Rest shortcut can be found [here](https://github.com/woainvzu/PythonIDLE_config_
 - `Alt + d`: Delete a char backward
 - `Ctrl + k`: Delete the line after the cursor
 - `Ctrl + u`: Delete the line before the cursor
-- `Alt + j`: Scroll down
-- `Alt + k`: Scroll up
+- `Alt + j`: Scroll down one line
+- `Alt + k`: Scroll up one line
+
+# For Cygwin
+- `Alt + j`: Scroll down one line
+- `Alt + k`: Scrool up one line
 
 # For CHM reader (hh.exe)
 - `Shift + j`: Scroll down
