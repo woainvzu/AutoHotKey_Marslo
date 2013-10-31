@@ -1,13 +1,21 @@
 ﻿; =============================================================================
 ;       FileName: Marslo.ahk
-;           Desc: 
+;           Desc:
+;                 How to get class of windows:
+;                       WinGetClass, sClass, A
+;                       MsgBox $%sClass%$
+;                       if ("TTOTAL_CMD" == sClass)
+;                       {
+;                         Send xxxx
+;                       }
 ;         Author: Marslo
 ;          Email: marslo.vida@gmail.com
-;        Version: 0.0.3
-;     LastChange: 2013-09-11 20:06:20
+;        Version: 0.0.4
+;     LastChange: 2013-10-31 18:24:06
 ;        History:
 ;               0.0.2: Add the shortcut key make command line looks like shell
 ;               0.0.3: Add the shortcut key for Python interative shell
+;               0.0.4: Add ESC to close communicator main window, totle command and onenote
 ; =============================================================================
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
@@ -18,6 +26,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ^+r::
     reload
 Return
+
 
 
 ; Make quick scroll to the putty window
@@ -271,6 +280,30 @@ Return
 Return
 #IfWinActive
 
+; Make <ESC> to close office communicator
+#IfWinActive, ahk_class CommunicatorMainWindowClass
+Esc::
+    Send, !{F4}
+    Return
+Return
+#IfWinActive
+
+; Make <ESC> to close Totle command
+#IfWinActive, ahk_class TTOTAL_CMD
+Esc::
+    Send, !{F4}
+    Return
+Return
+#IfWinActive
+
+; Make <ESC> to close OneNote
+#IfWinActive, ahk_class Framework::CFrame
+ESC::
+    Send, !{F4}
+    Return
+Return
+#IfWinActive
+
 ; Open files
 !+f::
     ; run "%A_ProgramFiles%\Foxit Software\Foxit Reader\Foxit Reader.exe"
@@ -337,3 +370,9 @@ Return
 ; F1::MsgBox, % ComObjActive("Word.Application").ActiveDocument.FullName
 ; F1::MsgBox, ActiveDocument.Path
 ; "\" & ActiveDocument.Name
+
+; F7::
+    ; Send, ^c
+    ; MsgBox, %clipboard%
+    ; Run, vim.exe %clipboard%
+; return
